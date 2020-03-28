@@ -156,7 +156,7 @@ class ResAndShareActivity :
         windowManager.defaultDisplay.getSize(point)
         val v1 = window.decorView.rootView
         v1.isDrawingCacheEnabled = true
-        val bitmap = Bitmap.createBitmap(v1.drawingCache, 0, 0, point.x, (point.y * 0.75).toInt())
+        val bitmap = Bitmap.createBitmap(v1.drawingCache, 0, 25, point.x, (point.y * 0.75).toInt())
         v1.isDrawingCacheEnabled = false
         return bitmap
     }
