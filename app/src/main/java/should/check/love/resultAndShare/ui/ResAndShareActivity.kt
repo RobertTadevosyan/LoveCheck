@@ -3,7 +3,10 @@ package should.check.love.resultAndShare.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import com.google.android.gms.ads.AdRequest
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_res_and_share.*
+import kotlinx.android.synthetic.main.activity_res_and_share.adView
 import should.check.love.R
 import should.check.love.base.BaseActivity
 import should.check.love.main.model.CheckResult
@@ -21,7 +24,19 @@ class ResAndShareActivity :
         val checkResult = intent.extras?.getParcelable<CheckResult>("data")
         initUI(checkResult)
         setOnClickListeners()
+        loadAd()
     }
+
+    override fun onResume() {
+        super.onResume()
+        loadAd()
+    }
+
+    private fun loadAd() {
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+    }
+
 
     @SuppressLint("SetTextI18n")
     private fun initUI(checkResult: CheckResult?) {

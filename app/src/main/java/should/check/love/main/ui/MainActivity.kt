@@ -6,6 +6,8 @@ import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_main.*
 import should.check.love.R
 import should.check.love.base.BaseActivity
@@ -13,7 +15,6 @@ import should.check.love.base.Util
 import should.check.love.main.model.CheckResult
 import should.check.love.main.model.MainActivityRepository
 import should.check.love.main.viewModel.MainActivityViewModel
-import should.check.love.main.viewModel.ResAndShareActivityViewModel
 import should.check.love.resultAndShare.ui.ResAndShareActivity
 
 class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>() {
@@ -22,6 +23,19 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setOnClickListeners()
+        MobileAds.initialize(this) {}
+        loadAd()
+    }
+
+    private fun loadAd() {
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     override fun setObservers() {

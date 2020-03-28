@@ -25,6 +25,10 @@
         <activity
             android:name=".resultAndShare.ui.ResAndShareActivity"
             android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7373646242058248~4477270940"/>
     </application>
 
 </manifest>

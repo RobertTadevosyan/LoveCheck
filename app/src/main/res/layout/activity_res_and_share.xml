@@ -22,11 +22,11 @@
             android:id="@+id/txt_names_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="#3F20AF"
             android:fontFamily="@font/i_miss_your_kiss"
-            android:textSize="54sp"
+            android:gravity="center"
             android:padding="10dp"
+            android:textColor="#3F20AF"
+            android:textSize="54sp"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Poxos and Petros" />
 
@@ -79,12 +79,20 @@
             android:id="@+id/txt_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="#3F20AF"
             android:fontFamily="@font/peacechild"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="#3F20AF"
             android:textSize="54sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="Good"
-            android:padding="10dp"/>
+            app:layout_constraintBottom_toTopOf="@+id/adView"
+            tools:text="Good" />
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-7373646242058248/9071122076"
+            ads:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
