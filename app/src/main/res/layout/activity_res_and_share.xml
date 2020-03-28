@@ -12,6 +12,14 @@
         android:scaleType="centerCrop"
         android:src="@drawable/back_side_boy_girl" />
 
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/boy_and_girl_kiss"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_loading"
         android:layout_width="match_parent"
@@ -26,52 +34,70 @@
             android:gravity="center"
             android:padding="10dp"
             android:textColor="#3F20AF"
-            android:textSize="54sp"
+            android:textSize="44sp"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Poxos and Petros" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_result_anims"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/txt_result">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/good_love_anim"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="good.json"
+                app:lottie_loop="true"
+                app:lottie_repeatMode="restart"
+                app:lottie_speed="1.25" />
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/norm_love_anim"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="norm.json"
+                app:lottie_loop="true"
+                app:lottie_repeatMode="restart"
+                app:lottie_speed="1.25" />
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/bad_love_anim"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="bad.json"
+                app:lottie_loop="true"
+                app:lottie_repeatMode="restart"
+                app:lottie_speed="1.25" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/good_love_anim"
+            android:id="@+id/share_on_FB_anim"
             android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="120dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_result_anims"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="good.json"
-            app:lottie_loop="false"
-            app:lottie_repeatMode="restart"
-            app:lottie_speed="1.25" />
-
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/norm_love_anim"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="norm.json"
-            app:lottie_loop="false"
-            app:lottie_repeatMode="restart"
-            app:lottie_speed="1.25" />
-
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/bad_love_anim"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="bad.json"
-            app:lottie_loop="false"
+            app:lottie_fileName="share_fb_animation.json"
+            app:lottie_loop="true"
             app:lottie_repeatMode="restart"
             app:lottie_speed="1.25" />
 
@@ -81,11 +107,12 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/peacechild"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="5dp"
             android:textColor="#3F20AF"
-            android:textSize="54sp"
-            app:layout_constraintBottom_toTopOf="@+id/adView"
+            android:textSize="44sp"
+            app:layout_constraintTop_toBottomOf="@+id/txt_names_result"
             tools:text="Good" />
+
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"

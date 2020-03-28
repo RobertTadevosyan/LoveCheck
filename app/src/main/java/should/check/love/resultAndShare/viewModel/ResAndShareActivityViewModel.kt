@@ -8,6 +8,7 @@ import should.check.love.resultAndShare.ResAndShareActivityRepository
 
 
 class ResAndShareActivityViewModel : BaseViewModel<ResAndShareActivityRepository>() {
+    var checkResult: CheckResult? = null
     override fun createRepo(): ResAndShareActivityRepository {
         return ResAndShareActivityRepository()
     }
