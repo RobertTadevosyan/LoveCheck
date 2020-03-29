@@ -12,6 +12,4 @@ class ResAndShareActivityViewModel : BaseViewModel<ResAndShareActivityRepository
     override fun createRepo(): ResAndShareActivityRepository {
         return ResAndShareActivityRepository()
     }
-
-
 }

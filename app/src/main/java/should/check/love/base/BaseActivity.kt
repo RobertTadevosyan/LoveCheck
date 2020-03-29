@@ -1,10 +1,10 @@
 package should.check.love.base
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import should.check.love.main.model.Error
 
 abstract class BaseActivity<R : BaseRepository, VM : BaseViewModel<R>> : AppCompatActivity() {
 
@@ -21,12 +21,11 @@ abstract class BaseActivity<R : BaseRepository, VM : BaseViewModel<R>> : AppComp
 
     protected open fun setObservers() {
         viewModel.getErrorLiveData().observe(this, Observer {
-            Toast.makeText(this, it.errorMessage, Toast.LENGTH_SHORT).show()
-            onError()
+            onError(it)
         })
     }
 
-    abstract fun onError()
+    abstract fun onError(error: Error)
 
     override fun onDestroy() {
         super.onDestroy()
