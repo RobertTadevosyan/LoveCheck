@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">LoveCheck</string>
+    <string name="app_name">Love Check</string>
+    <string name="base_url">https://love-calculator.p.rapidapi.com/</string>
+    <string name="rapid_api_key">2940cbe69amsh63ede5d9f906568p10abfbjsn8a3b2d5fcff2</string>
+    <string name="rapid_api_host">love-calculator.p.rapidapi.com</string>
+    <string name="facebook_app_id">210064660258687</string>
+
+    <string name="enter_your_name">Enter Your name</string>
+    <string name="enter_your_lover_name">Enter your lover name</string>
+    <string name="calculate_love">Calculate Love</string>
+    <string name="calculate_your_love">Calculate your Love</string>
 </resources>
