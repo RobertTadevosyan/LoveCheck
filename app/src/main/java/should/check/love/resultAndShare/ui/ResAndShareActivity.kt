@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Point
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import com.facebook.CallbackManager
@@ -20,7 +19,8 @@ import kotlinx.android.synthetic.main.activity_res_and_share.*
 import should.check.love.R
 import should.check.love.base.BaseActivity
 import should.check.love.main.model.CheckResult
-import should.check.love.main.viewModel.ResAndShareActivityViewModel
+import should.check.love.main.model.Error
+import should.check.love.resultAndShare.viewModel.ResAndShareActivityViewModel
 import should.check.love.resultAndShare.ResAndShareActivityRepository
 
 import java.util.*
@@ -142,7 +142,7 @@ class ResAndShareActivity :
         return ResAndShareActivityViewModel::class.java
     }
 
-    override fun onError() {
+    override fun onError(error: Error) {
 
     }
 

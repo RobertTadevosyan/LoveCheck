@@ -16,6 +16,7 @@ import should.check.love.main.model.CheckResult
 import should.check.love.main.model.MainActivityRepository
 import should.check.love.main.viewModel.MainActivityViewModel
 import should.check.love.resultAndShare.ui.ResAndShareActivity
+import should.check.love.main.model.Error
 
 class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>() {
 
@@ -87,7 +88,7 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
         return MainActivityViewModel::class.java
     }
 
-    override fun onError() {
+    override fun onError(error: Error) {
         stopAnimation()
     }
 

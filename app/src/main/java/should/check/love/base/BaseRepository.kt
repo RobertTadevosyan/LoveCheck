@@ -5,8 +5,6 @@ import io.reactivex.disposables.CompositeDisposable
 import retrofit2.Response
 import should.check.love.main.model.CheckResult
 import should.check.love.main.model.Error
-import should.check.love.restApi.JsonApi
-import should.check.love.restApi.RetrofitService
 
 abstract class BaseRepository {
     protected var disposable = CompositeDisposable()
