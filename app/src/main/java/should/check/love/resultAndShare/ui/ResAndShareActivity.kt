@@ -29,6 +29,7 @@ class ResAndShareActivity :
     BaseActivity<ResAndShareActivityRepository, ResAndShareActivityViewModel>() {
     var callbackManager: CallbackManager? = null
     var shareDialog: ShareDialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_res_and_share)

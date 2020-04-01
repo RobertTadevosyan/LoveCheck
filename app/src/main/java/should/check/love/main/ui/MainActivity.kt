@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_main.*
 import should.check.love.R
@@ -20,6 +21,8 @@ import should.check.love.main.model.Error
 
 class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>() {
 
+    private lateinit var mInterstitialAd: InterstitialAd
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,6 +34,9 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
     private fun loadAd() {
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-7373646242058248/8054721167"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
     }
 
     override fun onResume() {
@@ -52,6 +58,9 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
             val intent = Intent(this, ResAndShareActivity::class.java)
             intent.putExtra("data", checkResult)
             startActivity(intent)
+            if(mInterstitialAd.isLoaded){
+                mInterstitialAd.show()
+            }
         }, 1000)
     }
 
