@@ -13,30 +13,47 @@
         android:src="@drawable/back_side_boy_girl" />
 
     <ImageView
+        android:id="@+id/img_app_icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:scaleType="centerCrop"
         android:elevation="10dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/boy_and_girl_kiss"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btn_invite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/invite_friends"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_app_icon"
+        app:layout_constraintStart_toEndOf="@+id/img_app_icon"
+        app:layout_constraintTop_toTopOf="@+id/img_app_icon"
+        android:background="@drawable/button_background"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_loading"
-        android:paddingTop="80dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#5BF568E7">
+        android:background="#5BF568E7"
+        android:paddingTop="80dp">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_names_result"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/i_miss_your_kiss"
+            android:layout_height="200dp"
             android:gravity="center"
             android:padding="10dp"
             android:textColor="#3F20AF"
-            android:textSize="44sp"
+            app:autoSizeMaxTextSize="40sp"
+            app:autoSizeMinTextSize="24sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Poxos and Petros" />
 

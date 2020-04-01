@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.Point
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -18,11 +19,9 @@ import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.activity_res_and_share.*
 import should.check.love.R
 import should.check.love.base.BaseActivity
-import should.check.love.main.model.CheckResult
 import should.check.love.main.model.Error
-import should.check.love.resultAndShare.viewModel.ResAndShareActivityViewModel
 import should.check.love.resultAndShare.ResAndShareActivityRepository
-
+import should.check.love.resultAndShare.viewModel.ResAndShareActivityViewModel
 import java.util.*
 
 
@@ -33,7 +32,7 @@ class ResAndShareActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_res_and_share)
-        viewModel.checkResult = intent.extras?.getParcelable<CheckResult>("data")
+        viewModel.checkResult = intent.extras?.getParcelable("data")
         initUI()
         setOnClickListeners()
         loadAd()
@@ -91,13 +90,27 @@ class ResAndShareActivity :
     }
 
     private fun makeFirstLetterCapital(text: String?): String {
-        if (text?.length!! < 1) {
+        if (text?.trim()?.length!! < 1) {
             return ""
         }
-        return text.substring(
+        val textTrimmed = text.trim()
+        var firstName = textTrimmed
+        var lastName = ""
+        if (textTrimmed.contains(" ")) {
+            firstName = textTrimmed.substring(0, textTrimmed.indexOf(" "))
+            lastName = textTrimmed.substring(firstName.length + 1)
+        }
+        firstName = firstName.substring(
             0,
             1
-        ).toUpperCase(Locale.getDefault()) + text.substring(1).toLowerCase(Locale.getDefault())
+        ).toUpperCase(Locale.getDefault()) + firstName.substring(1).toLowerCase(Locale.getDefault())
+        if (lastName.isNotEmpty()) {
+            lastName = lastName.substring(
+                0,
+                1
+            ).toUpperCase(Locale.getDefault()) + lastName.substring(1).toLowerCase(Locale.getDefault())
+        }
+        return "$firstName $lastName"
     }
 
     private fun setOnClickListeners() {
@@ -107,6 +120,26 @@ class ResAndShareActivity :
                 .setShareHashtag(ShareHashtag.Builder().setHashtag("#loveCalculate").build())
                 .build()
             shareDialog!!.show(content, ShareDialog.Mode.AUTOMATIC)
+        }
+        btn_invite.setOnClickListener {
+            val message = "https://play.google.com/store/apps/details?id=should.check.love"
+            val share = Intent(Intent.ACTION_SEND)
+            share.type = "text/plain"
+            share.putExtra(Intent.EXTRA_TEXT, message)
+            if (share.resolveActivity(packageManager) != null) {
+                startActivity(
+                    Intent.createChooser(
+                        share,
+                        "Check your love :)"
+                    )
+                )
+            } else {
+                Toast.makeText(
+                    this,
+                    "OOOPS!!, There is no app to share the link via :(",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
