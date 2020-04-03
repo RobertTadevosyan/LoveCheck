@@ -48,7 +48,10 @@ class MainActivityRepository : BaseRepository() {
                 .addHeader("x-rapidapi-key", "2940cbe69amsh63ede5d9f906568p10abfbjsn8a3b2d5fcff2")
                 .build()
             val response = client.newCall(request).execute()
-            emmiter.onNext(response)
+            if (!emmiter.isDisposed) {
+                emmiter.onNext(response)
+                emmiter.onComplete()
+            }
         }
     }
 
