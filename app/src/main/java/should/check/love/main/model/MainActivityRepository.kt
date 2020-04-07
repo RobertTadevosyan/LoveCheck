@@ -1,5 +1,6 @@
 package should.check.love.main.model
 
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import io.reactivex.Observable
@@ -8,31 +9,37 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import should.check.love.LoveApp
 import should.check.love.base.BaseRepository
 
 class MainActivityRepository : BaseRepository() {
     var checkResultLiveData: MutableLiveData<CheckResult> = MutableLiveData()
 
     fun checkLove(firstName: String, secondName: String) {
-        disposable.add(
-            getCheckLoveObservable(firstName, secondName)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    if (it.isSuccessful && it.body() != null) {
-                        checkResultLiveData.postValue(
-                            Gson().fromJson(
-                                it.body()?.string(),
-                                CheckResult::class.java
+        try {
+            disposable.add(
+                getCheckLoveObservable(firstName, secondName)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        if (it.isSuccessful && it.body() != null) {
+                            checkResultLiveData.postValue(
+                                Gson().fromJson(
+                                    it.body()?.string(),
+                                    CheckResult::class.java
+                                )
                             )
-                        )
-                    } else {
-                        errorLiveData.postValue(Error(it.code(), it.message()))
-                    }
-                }, {
-                    errorLiveData.postValue(Error(999, it.message))
-                })
-        )
+                        } else {
+                            errorLiveData.postValue(Error(it.code(), it.message()))
+                        }
+                    }, {
+                        errorLiveData.postValue(Error(999, it.message))
+                    })
+            )
+        } catch (throwable: Throwable) {
+            Toast.makeText(LoveApp.getInstance(), "Something wen wrong, please try again", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     private fun getCheckLoveObservable(

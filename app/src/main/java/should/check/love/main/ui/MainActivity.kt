@@ -1,15 +1,21 @@
 package should.check.love.main.ui
 
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.formats.MediaView
+import com.google.android.gms.ads.formats.UnifiedNativeAd
+import com.google.android.gms.ads.formats.UnifiedNativeAdView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.ad_unified.view.*
 import should.check.love.R
 import should.check.love.base.BaseActivity
 import should.check.love.base.Util
@@ -37,6 +43,73 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = "ca-app-pub-7373646242058248/8054721167"
         mInterstitialAd.loadAd(AdRequest.Builder().build())
+        loadNativeAd()
+    }
+
+    private fun loadNativeAd() {
+        val adLoader = AdLoader.Builder(this, "ca-app-pub-7373646242058248/6937645263")
+            .forUnifiedNativeAd { ad: UnifiedNativeAd ->
+                loadNativeAdViews(ad)
+            }
+            .build()
+        adLoader.loadAd(AdRequest.Builder().build())
+    }
+
+    private fun loadNativeAdViews(unifiedNativeAd: UnifiedNativeAd) {
+        val adView = layoutInflater
+            .inflate(R.layout.ad_unified, null) as UnifiedNativeAdView
+        // This method sets the text, images and the native ad, etc into the ad
+        // view.
+        populateUnifiedNativeAdView(unifiedNativeAd, adView)
+        // Assumes you have a placeholder FrameLayout in your View layout
+        // (with id ad_frame) where the ad is to be placed.
+        ad_frame.removeAllViews()
+        ad_frame.addView(adView)
+    }
+
+    private fun populateUnifiedNativeAdView(
+        ad: UnifiedNativeAd,
+        adView: UnifiedNativeAdView
+    ) {
+        val headlineView = adView.findViewById<TextView>(R.id.ad_headline)
+        headlineView.text = ad.headline
+        adView.headlineView = headlineView
+
+        val adAdvertiser = adView.findViewById<TextView>(R.id.ad_advertiser)
+        adAdvertiser.text = ad.headline
+        adView.advertiserView = adAdvertiser
+
+        val bodyView = adView.findViewById<TextView>(R.id.ad_body)
+        bodyView.text = ad.body
+        adView.bodyView = bodyView
+
+        val callToActionView = adView.findViewById<TextView>(R.id.ad_call_to_action)
+        callToActionView.text = ad.callToAction
+        adView.callToActionView = callToActionView
+
+        val iconView = adView.findViewById<ImageView>(R.id.ad_app_icon)
+        iconView.setImageDrawable(ad.icon.drawable)
+        adView.iconView = iconView
+
+        val priceView = adView.findViewById<TextView>(R.id.ad_price)
+        priceView.text = ad.price
+        adView.priceView = priceView
+
+        val starRatingView = adView.findViewById<RatingBar>(R.id.ad_stars)
+        starRatingView.rating = ad.starRating?.toFloat() ?: 0f
+        adView.starRatingView = starRatingView
+
+        val storeView = adView.findViewById<TextView>(R.id.ad_store)
+        storeView.text = ad.store
+        adView.storeView = storeView
+
+
+        val mediaView = adView.findViewById<MediaView>(R.id.ad_media)
+        adView.mediaView = mediaView
+        mediaView.setMediaContent(ad.mediaContent)
+//        mediaView.setImageScaleType(ImageView.ScaleType.CE)
+
+        adView.setNativeAd(ad)
     }
 
     override fun onResume() {
@@ -58,7 +131,7 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
             val intent = Intent(this, ResAndShareActivity::class.java)
             intent.putExtra("data", checkResult)
             startActivity(intent)
-            if(mInterstitialAd.isLoaded){
+            if (mInterstitialAd.isLoaded) {
                 mInterstitialAd.show()
             }
         }, 1000)
