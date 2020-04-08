@@ -36,8 +36,8 @@
 
                     <ImageView
                         android:id="@+id/ad_app_icon"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
                         android:adjustViewBounds="true"
                         android:paddingEnd="5dp"
                         tools:src="@mipmap/ic_launcher"
@@ -55,8 +55,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="#0000FF"
                             tools:text="headlineheadlineadlineheadline"
-                            android:padding="2dp"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -69,10 +68,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="bottom"
-                                tools:text="ad_advertiserad_advertiser"
-                                android:textSize="15sp"
-                                android:layout_marginTop="5dp"
-                                android:padding="2dp"
+                                tools:text="ad_yyadvertiseyyrad_advertiser"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
 
                             <RatingBar
@@ -82,7 +79,6 @@
                                 android:layout_height="wrap_content"
                                 android:isIndicator="true"
                                 android:numStars="5"
-                                android:layout_marginTop="5dp"
                                 android:stepSize="0.5" />
                         </LinearLayout>
 
@@ -101,14 +97,14 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginTop="5dp"
                         tools:text="ad_bodyad_bodyad_bodyad_bodyad_bodyad_bodyad_bodyad_bodyad_body"
-                        android:padding="2dp"
+                        android:padding="1dp"
                         android:layout_marginRight="20dp"
-                        android:textSize="13sp" />
+                        android:textSize="11sp" />
 
                     <com.google.android.gms.ads.formats.MediaView
                         android:id="@+id/ad_media"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="180dp"
                         tools:background="@color/colorPrimaryDark"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp" />

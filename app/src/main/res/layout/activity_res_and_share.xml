@@ -140,5 +140,7 @@
             ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-7373646242058248/9071122076"
             ads:layout_constraintBottom_toBottomOf="parent" />
+
+<!--        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

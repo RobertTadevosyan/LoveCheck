@@ -14,52 +14,26 @@ import com.google.android.gms.ads.formats.MediaView
 import com.google.android.gms.ads.formats.NativeAdOptions
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
-import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions
-import io.reactivex.plugins.RxJavaPlugins
 import kotlinx.android.synthetic.main.activity_main.*
-import should.check.love.LoveApp
 import should.check.love.R
 import should.check.love.base.BaseActivity
 import should.check.love.base.Util
 import should.check.love.main.model.CheckResult
+import should.check.love.main.model.Error
 import should.check.love.main.model.MainActivityRepository
 import should.check.love.main.viewModel.MainActivityViewModel
 import should.check.love.resultAndShare.ui.ResAndShareActivity
-import should.check.love.main.model.Error
 
 class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>() {
 
     private lateinit var mInterstitialAd: InterstitialAd
     private var currentNativeAd: UnifiedNativeAd? = null
-    private var langToTranslate: Int = 11
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setOnClickListeners()
         MobileAds.initialize(this) {}
-        initTranslator()
-    }
-
-    private fun initTranslator() {
-        langToTranslate = getString(R.string.language).toInt()
-        RxJavaPlugins.setErrorHandler { it.printStackTrace() }
-        val options = FirebaseTranslatorOptions.Builder()
-            .setSourceLanguage(FirebaseTranslateLanguage.EN)
-            .setTargetLanguage(langToTranslate)
-            .build()
-        LoveApp.getInstance().englishTranslator =
-            FirebaseNaturalLanguage.getInstance().getTranslator(options)
-        LoveApp.getInstance().englishTranslator?.downloadModelIfNeeded()!!
-            .addOnSuccessListener {
-                // Model downloaded successfully. Okay to start translating.
-                // (Set a flag, unhide the translation UI, etc.)
-            }
-            .addOnFailureListener { exception ->
-                println(exception)
-            }
     }
 
     override fun onResume() {
@@ -72,6 +46,7 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
         adView.loadAd(adRequest)
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = "ca-app-pub-7373646242058248/8054721167"
+//        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/8691691433"  Test ad
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdFailedToLoad(p0: Int) {
                 super.onAdFailedToLoad(p0)
@@ -95,6 +70,7 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
                 .build()
 
             val builder = AdLoader.Builder(this, "ca-app-pub-7373646242058248/6937645263")
+//            val builder = AdLoader.Builder(this, "ca-app-pub-3940256099942544/1044960115") Test ad
             builder.withNativeAdOptions(adOptions)
             builder.forUnifiedNativeAd { ad: UnifiedNativeAd ->
                 currentNativeAd?.destroy()

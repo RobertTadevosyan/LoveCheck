@@ -16,18 +16,12 @@ import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
 import com.google.android.gms.ads.AdRequest
-import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions
 import kotlinx.android.synthetic.main.activity_res_and_share.*
-import should.check.love.LoveApp
 import should.check.love.R
 import should.check.love.base.BaseActivity
 import should.check.love.main.model.Error
 import should.check.love.resultAndShare.ResAndShareActivityRepository
 import should.check.love.resultAndShare.viewModel.ResAndShareActivityViewModel
-import java.lang.Appendable
 import java.util.*
 
 
@@ -35,17 +29,15 @@ class ResAndShareActivity :
     BaseActivity<ResAndShareActivityRepository, ResAndShareActivityViewModel>() {
     private var callbackManager: CallbackManager? = null
     private var shareDialog: ShareDialog? = null
-    private var langToTranslate: Int = 11
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_res_and_share)
         viewModel.checkResult = intent.extras?.getParcelable("data")
-        langToTranslate = getString(R.string.language).toInt()
-        initUI()
         setOnClickListeners()
         loadAd()
         initFacebookShareDialog()
+        initUI()
     }
 
     private fun initFacebookShareDialog() {
@@ -79,18 +71,7 @@ class ResAndShareActivity :
 
     @SuppressLint("SetTextI18n")
     private fun initUI() {
-        if (langToTranslate == FirebaseTranslateLanguage.EN) {
-            txt_result.text = viewModel.checkResult?.result
-        } else {
-            LoveApp.getInstance().englishTranslator?.translate(
-                viewModel.checkResult?.result ?: "Failed"
-            )!!
-                .addOnSuccessListener {
-                    txt_result.text = it
-                }.addOnFailureListener {
-                    txt_result.text = viewModel.checkResult?.result
-                }
-        }
+        txt_result.text = viewModel.checkResult?.result
         txt_names_result.text =
             makeFirstLetterCapital(viewModel.checkResult?.fname) + getString(R.string.and) + " " + makeFirstLetterCapital(
                 viewModel.checkResult?.sname

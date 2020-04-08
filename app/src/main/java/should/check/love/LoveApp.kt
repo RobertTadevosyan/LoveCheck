@@ -1,8 +1,8 @@
 package should.check.love
 
 import android.app.Application
-import com.google.firebase.FirebaseApp
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator
+
+import io.reactivex.plugins.RxJavaPlugins
 
 
 class LoveApp : Application() {
@@ -14,11 +14,9 @@ class LoveApp : Application() {
         }
     }
 
-    var englishTranslator: FirebaseTranslator? = null
-
     override fun onCreate() {
         super.onCreate()
-        FirebaseApp.initializeApp(this)
         instance = this
+        RxJavaPlugins.setErrorHandler { it.printStackTrace() }
     }
 }

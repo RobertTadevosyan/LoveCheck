@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -53,6 +52,4 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:19.0.1'
 
     implementation 'com.facebook.android:facebook-share:[5,6)'
-    implementation 'com.google.firebase:firebase-ml-natural-language:22.0.0'
-    implementation 'com.google.firebase:firebase-ml-natural-language-translate-model:20.0.7'
 }
