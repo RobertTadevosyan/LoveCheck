@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Amor Comprobar</string>
+    <string name="enter_your_name">Introduzca su nombre</string>
+    <string name="enter_your_lover_name">Ingrese su nombre de amante</string>
+    <string name="calculate_love">Calcular el Amor</string>
+    <string name="calculate_your_love">Calcule Su Amor</string>
+    <string name="invite_friends">Ayuda a los/las amigas a comprobar su amor :)</string>
+    <string name="and">y</string>
+    <string name="language">13</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Пpoвepить Любoвь</string>
+    <string name="enter_your_name">Ваше имя(на латинском)</string>
+    <string name="enter_your_lover_name">Имя любовника(на латинском)</string>
+    <string name="calculate_love">Рассчитать Любовь</string>
+    <string name="calculate_your_love">Рaccчитaйтe CBoю ЛюбoBь</string>
+    <string name="invite_friends">Пoмoгитe дpузьям пpoвepить cвoю любoвь :)</string>
+    <string name="and">и</string>
+    <string name="language">44</string>
+</resources>

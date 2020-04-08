@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "234653570702",
+    "firebase_url": "https://lovecheck-7ed4e.firebaseio.com",
+    "project_id": "lovecheck-7ed4e",
+    "storage_bucket": "lovecheck-7ed4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234653570702:android:682a280b6531d262161bdf",
+        "android_client_info": {
+          "package_name": "should.check.love"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "234653570702-c0thvajgpf3nkcp2145gan81hap1vsu6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "should.check.love",
+            "certificate_hash": "3a0f650ce9271f5ef01fa47b4b83b99edf551756"
+          }
+        },
+        {
+          "client_id": "234653570702-i6pmp744acp82himj5luuh76poliao9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8VDijS-EUM3NLtOKsEeDgXB-nOmtKDjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "234653570702-i6pmp744acp82himj5luuh76poliao9g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

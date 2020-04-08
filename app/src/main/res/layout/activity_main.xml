@@ -19,6 +19,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/love_is_awesome"
         android:gravity="center"
+        android:textAllCaps="true"
         android:text="@string/calculate_your_love"
         android:textColor="@color/colorAccent"
         android:textSize="46sp"

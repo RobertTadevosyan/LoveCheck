@@ -1,7 +1,6 @@
 package should.check.love.main.ui
 
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -12,10 +11,15 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.formats.MediaView
+import com.google.android.gms.ads.formats.NativeAdOptions
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
+import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions
+import io.reactivex.plugins.RxJavaPlugins
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.ad_unified.view.*
+import should.check.love.LoveApp
 import should.check.love.R
 import should.check.love.base.BaseActivity
 import should.check.love.base.Util
@@ -28,43 +32,96 @@ import should.check.love.main.model.Error
 class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>() {
 
     private lateinit var mInterstitialAd: InterstitialAd
+    private var currentNativeAd: UnifiedNativeAd? = null
+    private var langToTranslate: Int = 11
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setOnClickListeners()
         MobileAds.initialize(this) {}
-        loadAd()
+        initTranslator()
     }
 
-    private fun loadAd() {
+    private fun initTranslator() {
+        langToTranslate = getString(R.string.language).toInt()
+        RxJavaPlugins.setErrorHandler { it.printStackTrace() }
+        val options = FirebaseTranslatorOptions.Builder()
+            .setSourceLanguage(FirebaseTranslateLanguage.EN)
+            .setTargetLanguage(langToTranslate)
+            .build()
+        LoveApp.getInstance().englishTranslator =
+            FirebaseNaturalLanguage.getInstance().getTranslator(options)
+        LoveApp.getInstance().englishTranslator?.downloadModelIfNeeded()!!
+            .addOnSuccessListener {
+                // Model downloaded successfully. Okay to start translating.
+                // (Set a flag, unhide the translation UI, etc.)
+            }
+            .addOnFailureListener { exception ->
+                println(exception)
+            }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadAds()
+    }
+
+    private fun loadAds() {
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = "ca-app-pub-7373646242058248/8054721167"
+        mInterstitialAd.adListener = object : AdListener() {
+            override fun onAdFailedToLoad(p0: Int) {
+                super.onAdFailedToLoad(p0)
+                if (!mInterstitialAd.isLoaded && !mInterstitialAd.isLoading) {
+                    mInterstitialAd.loadAd(AdRequest.Builder().build())
+                }
+            }
+        }
         mInterstitialAd.loadAd(AdRequest.Builder().build())
         loadNativeAd()
     }
 
     private fun loadNativeAd() {
-        val adLoader = AdLoader.Builder(this, "ca-app-pub-7373646242058248/6937645263")
-            .forUnifiedNativeAd { ad: UnifiedNativeAd ->
+        try {
+            val videoOptions = VideoOptions.Builder()
+                .setStartMuted(true)
+                .build()
+
+            val adOptions = NativeAdOptions.Builder()
+                .setVideoOptions(videoOptions)
+                .build()
+
+            val builder = AdLoader.Builder(this, "ca-app-pub-7373646242058248/6937645263")
+            builder.withNativeAdOptions(adOptions)
+            builder.forUnifiedNativeAd { ad: UnifiedNativeAd ->
+                currentNativeAd?.destroy()
+                currentNativeAd = ad
                 loadNativeAdViews(ad)
-            }
-            .build()
-        adLoader.loadAd(AdRequest.Builder().build())
+            }.build()
+            val adLoader = builder.build()
+
+            adLoader.loadAd(AdRequest.Builder().build())
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
     }
 
     private fun loadNativeAdViews(unifiedNativeAd: UnifiedNativeAd) {
-        val adView = layoutInflater
-            .inflate(R.layout.ad_unified, null) as UnifiedNativeAdView
-        // This method sets the text, images and the native ad, etc into the ad
-        // view.
-        populateUnifiedNativeAdView(unifiedNativeAd, adView)
-        // Assumes you have a placeholder FrameLayout in your View layout
-        // (with id ad_frame) where the ad is to be placed.
-        ad_frame.removeAllViews()
-        ad_frame.addView(adView)
+        try {
+            val adView = layoutInflater
+                .inflate(R.layout.ad_unified, null) as UnifiedNativeAdView
+            populateUnifiedNativeAdView(unifiedNativeAd, adView)
+            // Assumes you have a placeholder FrameLayout in your View layout
+            // (with id ad_frame) where the ad is to be placed.
+            ad_frame.removeAllViews()
+            ad_frame.addView(adView)
+        } catch (throwable: Throwable) {
+            ad_frame.removeAllViews()
+            throwable.printStackTrace()
+        }
     }
 
     private fun populateUnifiedNativeAdView(
@@ -110,12 +167,6 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
 //        mediaView.setImageScaleType(ImageView.ScaleType.CE)
 
         adView.setNativeAd(ad)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
     }
 
     override fun setObservers() {
@@ -174,5 +225,9 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
         stopAnimation()
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        currentNativeAd?.destroy()
+        viewModel.onUIDestroyed()
+    }
 }
