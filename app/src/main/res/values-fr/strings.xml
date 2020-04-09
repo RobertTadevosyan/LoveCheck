@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Chèque d\'amour</string>
+    <string name="enter_your_name">Votre nom (en latin)</string>
+    <string name="enter_your_lover_name">Nom de l\'amant (en latin)</string>
+    <string name="calculate_love">Calculer l\'amour</string>
+    <string name="calculate_your_love">Calculez votre amour</string>
+    <string name="invite_friends">Aidez vos amis à prouver leur amour</string>
+    <string name="and">et</string>
+    <string name="language">13</string>
+    <string name="enter_all_values">Veuillez saisir des noms dans tous les champs</string>
+</resources>

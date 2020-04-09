@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ラブチェック</string>
+    <string name="enter_your_name">あなたの名前（ラテン語)</string>
+    <string name="enter_your_lover_name">恋人の名前（ラテン語）</string>
+    <string name="calculate_love">愛を計算する</string>
+    <string name="calculate_your_love">あなたの愛を計算する</string>
+    <string name="invite_friends">友達が自分の愛をチェックするのを助ける</string>
+    <string name="and">と</string>
+    <string name="language">13</string>
+    <string name="enter_all_values">すべてのフィールドに名前を入力してください</string>
+</resources>

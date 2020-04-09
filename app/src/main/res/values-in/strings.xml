@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cek cinta</string>
+    <string name="enter_your_name">Nama Anda (dalam bahasa Latin)</string>
+    <string name="enter_your_lover_name">Masukkan nama kekasih Anda</string>
+    <string name="calculate_love">Hitung Cinta</string>
+    <string name="calculate_your_love">Hitung Cinta Anda</string>
+    <string name="invite_friends">Bantu teman untuk memeriksa cinta mereka</string>
+    <string name="and">dan</string>
+    <string name="language">13</string>
+    <string name="enter_all_values">Silakan masukkan nama di semua bidang</string>
+</resources>

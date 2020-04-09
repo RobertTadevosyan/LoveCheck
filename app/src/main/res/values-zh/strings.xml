@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">爱检查</string>
+    <string name="enter_your_name">您的名字（拉丁文</string>
+    <string name="enter_your_lover_name">情人的名字（拉丁文）</string>
+    <string name="calculate_love">计算爱</string>
+    <string name="calculate_your_love">计算你的爱</string>
+    <string name="invite_friends">帮助朋友检查自己的爱</string>
+    <string name="and">和</string>
+    <string name="language">13</string>
+    <string name="enter_all_values">请在所有字段中输入名称</string>
+</resources>

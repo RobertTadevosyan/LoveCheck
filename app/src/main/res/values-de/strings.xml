@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Liebescheck</string>
+    <string name="enter_your_name">Dein Name (lateinisch)</string>
+    <string name="enter_your_lover_name">Name des Liebhabers (lateinisch)</string>
+    <string name="calculate_love">Berechne die Liebe</string>
+    <string name="calculate_your_love">Berechne deine Liebe</string>
+    <string name="invite_friends">Hilf freunden, ihre Liebe zu beweisen amor</string>
+    <string name="and">und</string>
+    <string name="language">13</string>
+    <string name="enter_all_values">Bitte geben Sie Namen in alle Felder ein</string>
+</resources>

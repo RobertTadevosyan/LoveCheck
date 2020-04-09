@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Seleção de amor</string>
+    <string name="enter_your_name">Seu nome (em latim)</string>
+    <string name="enter_your_lover_name">Nome do amante (em latim)</string>
+    <string name="calculate_love">Calcular amor</string>
+    <string name="calculate_your_love">Calcule seu amor</string>
+    <string name="invite_friends">Ajude os amigos a verificar seu amor</string>
+    <string name="and">e</string>
+    <string name="language">13</string>
+    <string name="enter_all_values">Digite os nomes em todos os campos</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">الحب الاختيار</string>
+    <string name="enter_your_name">اسمك (باللاتينية)</string>
+    <string name="enter_your_lover_name">اسم العاشق (باللاتينية)</string>
+    <string name="calculate_love">احسب الحب</string>
+    <string name="calculate_your_love">احسب حبك</string>
+    <string name="invite_friends">ساعد الأصدقاء على التحقق من حبهم</string>
+    <string name="and">و</string>
+    <string name="language">13</string>
+    <string name="enter_all_values">الرجاء إدخال الأسماء في جميع المجالات</string>
+</resources>
