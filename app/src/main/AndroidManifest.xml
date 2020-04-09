@@ -25,7 +25,8 @@
         </activity>
         <activity
             android:name=".resultAndShare.ui.ResAndShareActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
 
         <activity
             android:name="com.facebook.FacebookActivity"

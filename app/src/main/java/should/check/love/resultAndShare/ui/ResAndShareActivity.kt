@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.os.Bundle
+import android.os.Handler
+import android.speech.tts.TextToSpeech
 import android.view.View
 import android.widget.Toast
 import com.facebook.CallbackManager
@@ -17,6 +19,7 @@ import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
 import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.activity_res_and_share.*
+import should.check.love.LoveApp
 import should.check.love.R
 import should.check.love.base.BaseActivity
 import should.check.love.main.model.Error
@@ -29,6 +32,7 @@ class ResAndShareActivity :
     BaseActivity<ResAndShareActivityRepository, ResAndShareActivityViewModel>() {
     private var callbackManager: CallbackManager? = null
     private var shareDialog: ShareDialog? = null
+    private var txtToSpeech: TextToSpeech? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +41,7 @@ class ResAndShareActivity :
         setOnClickListeners()
         loadAd()
         initFacebookShareDialog()
-        initUI()
+        initTextToSpeech()
     }
 
     private fun initFacebookShareDialog() {
@@ -68,9 +72,17 @@ class ResAndShareActivity :
         adView.loadAd(adRequest)
     }
 
+    private fun initTextToSpeech() {
+        txtToSpeech = TextToSpeech(LoveApp.getInstance(), TextToSpeech.OnInitListener {
+            txtToSpeech?.language = Locale.ENGLISH
+            initUI()
+        })
+    }
+
 
     @SuppressLint("SetTextI18n")
     private fun initUI() {
+        txtToSpeech?.speak(viewModel.checkResult?.result, TextToSpeech.QUEUE_FLUSH, null)
         txt_result.text = viewModel.checkResult?.result
         txt_names_result.text =
             makeFirstLetterCapital(viewModel.checkResult?.fname) + getString(R.string.and) + " " + makeFirstLetterCapital(
@@ -88,6 +100,22 @@ class ResAndShareActivity :
                 showGoodLove()
             }
         }
+        if (percentage >= 35) {
+            Handler().postDelayed({
+                speechShareText()
+            }, 2000)
+        }
+    }
+
+    private fun speechShareText() {
+        var locale =
+            txtToSpeech?.availableLanguages?.find { it.language == Locale.getDefault().language }
+        if (locale == null) {
+            locale = Locale.ENGLISH
+        }
+        txtToSpeech?.language = locale
+        txtToSpeech?.speak(viewModel.checkResult?.fname?.replace("/", "") + " " + getString(R.string.invite_friends), TextToSpeech.QUEUE_FLUSH, null)
+        shareActionPerformed()
     }
 
     private fun makeFirstLetterCapital(text: String?): String {
@@ -123,24 +151,28 @@ class ResAndShareActivity :
             shareDialog!!.show(content, ShareDialog.Mode.AUTOMATIC)
         }
         btn_invite.setOnClickListener {
-            val message = "https://play.google.com/store/apps/details?id=should.check.love"
-            val share = Intent(Intent.ACTION_SEND)
-            share.type = "text/plain"
-            share.putExtra(Intent.EXTRA_TEXT, message)
-            if (share.resolveActivity(packageManager) != null) {
-                startActivity(
-                    Intent.createChooser(
-                        share,
-                        "Check your love :)"
-                    )
+            shareActionPerformed()
+        }
+    }
+
+    private fun shareActionPerformed() {
+        val message = "https://play.google.com/store/apps/details?id=should.check.love"
+        val share = Intent(Intent.ACTION_SEND)
+        share.type = "text/plain"
+        share.putExtra(Intent.EXTRA_TEXT, message)
+        if (share.resolveActivity(packageManager) != null) {
+            startActivity(
+                Intent.createChooser(
+                    share,
+                    "Check your love :)"
                 )
-            } else {
-                Toast.makeText(
-                    this,
-                    "OOOPS!!, There is no app to share the link via :(",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+            )
+        } else {
+            Toast.makeText(
+                this,
+                "OOOPS!!, There is no app to share the link via :(",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
