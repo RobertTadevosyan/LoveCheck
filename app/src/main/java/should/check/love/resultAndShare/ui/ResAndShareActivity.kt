@@ -20,6 +20,7 @@ import com.facebook.share.widget.ShareDialog
 import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.activity_res_and_share.*
 import should.check.love.LoveApp
+import should.check.love.PrefsUtils
 import should.check.love.R
 import should.check.love.base.BaseActivity
 import should.check.love.main.model.Error
@@ -98,6 +99,11 @@ class ResAndShareActivity :
                 speechShareText()
             }, 2000)
         }
+        PrefsUtils.saveScore(
+            txt_names_result.text.toString(),
+            txt_result.text.toString(),
+            percentage
+        )
     }
 
     private fun speechShareText() {

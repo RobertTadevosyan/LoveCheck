@@ -4,6 +4,7 @@
     package="should.check.love">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <application
         android:name="LoveApp"
         android:allowBackup="true"
@@ -55,6 +56,10 @@
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider210064660258687"
+            android:exported="true" />
+
+        <receiver
+            android:name=".Alarm"
             android:exported="true" />
     </application>
 

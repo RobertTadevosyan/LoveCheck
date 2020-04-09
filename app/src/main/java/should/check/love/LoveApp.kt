@@ -2,7 +2,6 @@ package should.check.love
 
 import android.app.Application
 import android.speech.tts.TextToSpeech
-
 import io.reactivex.plugins.RxJavaPlugins
 import java.util.*
 
@@ -23,6 +22,8 @@ class LoveApp : Application() {
         instance = this
         RxJavaPlugins.setErrorHandler { it.printStackTrace() }
         initTextToSpeech()
+        Alarm().cancelAlarm(this)
+        Alarm().setAlarm(this)
     }
 
     public fun getTextToSpeechWithDefaultLocale(): TextToSpeech? {
