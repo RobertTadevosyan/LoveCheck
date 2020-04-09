@@ -1,8 +1,10 @@
 package should.check.love
 
 import android.app.Application
+import android.speech.tts.TextToSpeech
 
 import io.reactivex.plugins.RxJavaPlugins
+import java.util.*
 
 
 class LoveApp : Application() {
@@ -14,9 +16,34 @@ class LoveApp : Application() {
         }
     }
 
+    var txtToSpeech: TextToSpeech? = null
+
     override fun onCreate() {
         super.onCreate()
         instance = this
         RxJavaPlugins.setErrorHandler { it.printStackTrace() }
+        initTextToSpeech()
     }
+
+    public fun getTextToSpeechWithDefaultLocale(): TextToSpeech? {
+        var locale =
+            txtToSpeech?.availableLanguages?.find { it.language == Locale.getDefault().language }
+        if (locale == null) {
+            locale = Locale.ENGLISH
+        }
+        txtToSpeech?.language = locale
+        return txtToSpeech
+    }
+
+    private fun initTextToSpeech() {
+        txtToSpeech = TextToSpeech(this, TextToSpeech.OnInitListener {
+            var locale =
+                txtToSpeech?.availableLanguages?.find { it.language == Locale.getDefault().language }
+            if (locale == null) {
+                locale = Locale.ENGLISH
+            }
+            txtToSpeech?.language = locale
+        })
+    }
+
 }

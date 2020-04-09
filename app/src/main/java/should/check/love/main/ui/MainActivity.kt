@@ -3,6 +3,7 @@ package should.check.love.main.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.speech.tts.TextToSpeech
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -15,6 +16,7 @@ import com.google.android.gms.ads.formats.NativeAdOptions
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
 import kotlinx.android.synthetic.main.activity_main.*
+import should.check.love.LoveApp
 import should.check.love.R
 import should.check.love.base.BaseActivity
 import should.check.love.base.Util
@@ -171,7 +173,8 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
                 startAnimation()
                 viewModel.checkLove(et_first_name.text.toString(), et_second_name.text.toString())
             } else {
-                Toast.makeText(this, "Please enter names in all fields", Toast.LENGTH_SHORT).show()
+                LoveApp.getInstance().getTextToSpeechWithDefaultLocale()?.speak(getString(R.string.enter_all_values), TextToSpeech.QUEUE_FLUSH, null)
+                Toast.makeText(this, getString(R.string.enter_all_values), Toast.LENGTH_SHORT).show()
             }
         }
     }

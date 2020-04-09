@@ -32,7 +32,6 @@ class ResAndShareActivity :
     BaseActivity<ResAndShareActivityRepository, ResAndShareActivityViewModel>() {
     private var callbackManager: CallbackManager? = null
     private var shareDialog: ShareDialog? = null
-    private var txtToSpeech: TextToSpeech? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +40,7 @@ class ResAndShareActivity :
         setOnClickListeners()
         loadAd()
         initFacebookShareDialog()
-        initTextToSpeech()
+        initUI()
     }
 
     private fun initFacebookShareDialog() {
@@ -72,17 +71,11 @@ class ResAndShareActivity :
         adView.loadAd(adRequest)
     }
 
-    private fun initTextToSpeech() {
-        txtToSpeech = TextToSpeech(LoveApp.getInstance(), TextToSpeech.OnInitListener {
-            txtToSpeech?.language = Locale.ENGLISH
-            initUI()
-        })
-    }
-
 
     @SuppressLint("SetTextI18n")
     private fun initUI() {
-        txtToSpeech?.speak(viewModel.checkResult?.result, TextToSpeech.QUEUE_FLUSH, null)
+        LoveApp.getInstance().txtToSpeech?.language = Locale.ENGLISH
+        LoveApp.getInstance().txtToSpeech?.speak(viewModel.checkResult?.result, TextToSpeech.QUEUE_FLUSH, null)
         txt_result.text = viewModel.checkResult?.result
         txt_names_result.text =
             makeFirstLetterCapital(viewModel.checkResult?.fname) + getString(R.string.and) + " " + makeFirstLetterCapital(
@@ -108,13 +101,7 @@ class ResAndShareActivity :
     }
 
     private fun speechShareText() {
-        var locale =
-            txtToSpeech?.availableLanguages?.find { it.language == Locale.getDefault().language }
-        if (locale == null) {
-            locale = Locale.ENGLISH
-        }
-        txtToSpeech?.language = locale
-        txtToSpeech?.speak(viewModel.checkResult?.fname?.replace("/", "") + " " + getString(R.string.invite_friends), TextToSpeech.QUEUE_FLUSH, null)
+        LoveApp.getInstance().getTextToSpeechWithDefaultLocale()?.speak(viewModel.checkResult?.fname?.replace("/", "") + " " + getString(R.string.invite_friends), TextToSpeech.QUEUE_FLUSH, null)
         shareActionPerformed()
     }
 
