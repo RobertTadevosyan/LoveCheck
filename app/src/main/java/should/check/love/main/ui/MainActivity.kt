@@ -44,11 +44,10 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
     }
 
     private fun loadAds() {
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+        adView.loadAd(LoveApp.getInstance().getAdRequest())
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = "ca-app-pub-7373646242058248/8054721167"
-//        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/8691691433"  Test ad
+//        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/8691691433"  /*Test ad*/
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdFailedToLoad(p0: Int) {
                 super.onAdFailedToLoad(p0)
@@ -57,7 +56,7 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
                 }
             }
         }
-        mInterstitialAd.loadAd(AdRequest.Builder().build())
+        mInterstitialAd.loadAd(LoveApp.getInstance().getAdRequest())
         loadNativeAd()
     }
 
@@ -72,7 +71,7 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
                 .build()
 
             val builder = AdLoader.Builder(this, "ca-app-pub-7373646242058248/6937645263")
-//            val builder = AdLoader.Builder(this, "ca-app-pub-3940256099942544/1044960115") Test ad
+//            val builder = AdLoader.Builder(this, "ca-app-pub-3940256099942544/1044960115") /*Test ad*/
             builder.withNativeAdOptions(adOptions)
             builder.forUnifiedNativeAd { ad: UnifiedNativeAd ->
                 currentNativeAd?.destroy()
@@ -81,7 +80,7 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
             }.build()
             val adLoader = builder.build()
 
-            adLoader.loadAd(AdRequest.Builder().build())
+            adLoader.loadAd(LoveApp.getInstance().getAdRequest())
         } catch (throwable: Throwable) {
             throwable.printStackTrace()
         }
@@ -111,7 +110,7 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
         adView.headlineView = headlineView
 
         val adAdvertiser = adView.findViewById<TextView>(R.id.ad_advertiser)
-        adAdvertiser.text = ad.headline
+        adAdvertiser.text = ad.advertiser
         adView.advertiserView = adAdvertiser
 
         val bodyView = adView.findViewById<TextView>(R.id.ad_body)
@@ -140,8 +139,8 @@ class MainActivity : BaseActivity<MainActivityRepository, MainActivityViewModel>
 
 
         val mediaView = adView.findViewById<MediaView>(R.id.ad_media)
-        adView.mediaView = mediaView
         mediaView.setMediaContent(ad.mediaContent)
+        adView.mediaView = mediaView
 //        mediaView.setImageScaleType(ImageView.ScaleType.CE)
 
         adView.setNativeAd(ad)

@@ -17,7 +17,6 @@ import com.facebook.share.model.ShareHashtag
 import com.facebook.share.model.SharePhoto
 import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
-import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.activity_res_and_share.*
 import should.check.love.LoveApp
 import should.check.love.PrefsUtils
@@ -68,8 +67,7 @@ class ResAndShareActivity :
     }
 
     private fun loadAd() {
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+        adView.loadAd(LoveApp.getInstance().getAdRequest())
     }
 
 
